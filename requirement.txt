@@ -1,0 +1,36 @@
+运行与依赖要求（基于 index.html）：
+
+基础环境
+- 操作系统：Windows/macOS/Linux
+- 浏览器：Chrome/Edge 最新版（建议 Chrome 100+ 或 Edge 100+）
+- 硬件：可用摄像头，且不被其他应用占用
+- 权限：允许网页访问摄像头
+- 网络：需外网以加载 CDN 资源（离线请参考“可选（离线/本地化）”）
+
+外部资源（CDN）
+- Tailwind CSS：https://cdn.tailwindcss.com
+- Three.js（r128）：https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js
+- MediaPipe：
+  - Camera Utils：https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js
+  - Control Utils：https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js
+  - Hands：https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js
+- FontAwesome（6.4.0）：https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css
+
+手势识别阈值（与实现一致）
+- 挥手切换：|ΔX(wrist)| > 0.08（归一化坐标），含 1s 冷却
+- 捏合显示：拇指尖与食指尖距离 < 0.05
+- 捏合映射：将约 0.02~0.25 的距离线性映射到 0~1，用于音量/缩放
+
+可选（离线/本地化）
+- 将上述 CDN 文件下载到本地并固定版本号
+- 使用本地静态服务器（建议）以避免文件协议的权限/兼容性问题
+- 示例（Windows）：
+  1) 安装 Node.js（可选）
+  2) 安装本地服务器：npm i -g http-server
+  3) 在项目根目录启动：http-server -p 8080
+  4) 浏览器访问：http://localhost:8080/index.html
+
+故障排查
+- 摄像头被占用：关闭其他应用或标签页后重试
+- 权限拒绝：在浏览器设置中允许摄像头访问并刷新
+- 无网络：改用本地化资源并通过本地服务器运行
